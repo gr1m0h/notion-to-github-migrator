@@ -179,7 +179,7 @@ func processRecord(record map[string]string, config *Config) (string, []string, 
 	}
 
 	// Convert labels map to slice
-	var labels []string
+	labels := make([]string, 0)
 	for label := range labelsMap {
 		labels = append(labels, label)
 	}
