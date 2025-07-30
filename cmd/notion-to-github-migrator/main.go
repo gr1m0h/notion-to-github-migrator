@@ -42,11 +42,7 @@ func getDefaultConfig() Config {
 	config := Config{}
 	config.GitHub.Token = os.Getenv("GITHUB_TOKEN")
 	config.FieldMapping = map[string]FieldMap{
-		"Name":          {GitHubField: "title"},
-		"Tag":           {GitHubField: "label", Delimiter: ", "},
-		"SRE Goals":     {GitHubField: "label", Delimiter: ", "},
-		"Priority":      {GitHubField: "label", Delimiter: ", "},
-		"T-shirt sizes": {GitHubField: "label", Delimiter: ", "},
+		"Name": {GitHubField: "title"},
 	}
 	config.Retry.MaxAttempts = 3
 	config.Retry.DelayMs = 1000
@@ -71,13 +67,13 @@ func loadConfig(configPath string) (*Config, error) {
 
 	// Validate configuration
 	if config.GitHub.Token == "" {
-		return nil, fmt.Errorf("GitHub token is required")
+		return nil, fmt.Errorf("GitHub token is required (set GITHUB_TOKEN environment variable or provide in config file)")
 	}
 	if config.GitHub.Owner == "" {
-		return nil, fmt.Errorf("GitHub owner is required")
+		return nil, fmt.Errorf("GitHub owner is required (set 'github.owner' in config file)")
 	}
 	if config.GitHub.Repo == "" {
-		return nil, fmt.Errorf("GitHub repo is required")
+		return nil, fmt.Errorf("GitHub repo is required (set 'github.repo' in config file)")
 	}
 
 	return &config, nil
@@ -107,7 +103,7 @@ func ensureLabel(ctx context.Context, client *github.Client, owner, repo, labelN
 
 		_, _, err = client.Issues.CreateLabel(ctx, owner, repo, label)
 		if err != nil {
-			return fmt.Errorf("failed to create label %s: %w", labelName, err)
+			return fmt.Errorf("failed to create label '%s': %w", labelName, err)
 		}
 		log.Printf("Created label: %s with color #%s\n", labelName, color)
 	}
@@ -127,7 +123,7 @@ func createIssueWithRetry(ctx context.Context, client *github.Client, config *Co
 		}
 
 		lastErr = err
-		log.Printf("Failed to create issue \"%s\" (attempt %d/%d): %v\n",
+		log.Printf("Failed to create issue '%s' (attempt %d/%d): %v\n",
 			*issue.Title, attempt, config.Retry.MaxAttempts, err)
 
 		if attempt < config.Retry.MaxAttempts {
@@ -135,7 +131,7 @@ func createIssueWithRetry(ctx context.Context, client *github.Client, config *Co
 		}
 	}
 
-	log.Printf("Failed to create issue \"%s\" after %d attempts. Continuing...\n",
+	log.Printf("Failed to create issue '%s' after %d attempts. Continuing...\n",
 		*issue.Title, config.Retry.MaxAttempts)
 	return lastErr
 }
@@ -220,6 +216,10 @@ func migrateNotionToGitHub(csvPath string, configPath string) error {
 		return fmt.Errorf("failed to read CSV header: %w", err)
 	}
 
+	if len(header) == 0 {
+		return fmt.Errorf("CSV file has no headers")
+	}
+
 	// Process records
 	for {
 		record, err := reader.Read()
@@ -244,7 +244,7 @@ func migrateNotionToGitHub(csvPath string, configPath string) error {
 
 		// Skip if no title
 		if title == "" {
-			log.Println("Skipping record with empty title")
+			log.Printf("Skipping record with empty title at line %d\n", len(header)+1)
 			continue
 		}
 
@@ -262,9 +262,7 @@ func migrateNotionToGitHub(csvPath string, configPath string) error {
 			Labels: &labels,
 		}
 
-		if err := createIssueWithRetry(ctx, client, config, issue); err != nil {
-			log.Printf("Error creating issue: %v\n", err)
-		}
+		createIssueWithRetry(ctx, client, config, issue)
 	}
 
 	log.Println("Migration completed!")

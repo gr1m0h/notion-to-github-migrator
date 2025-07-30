@@ -19,21 +19,24 @@ GitHub Personal Access Token (Fine-grained)
 
 ```bash
 # Clone repository
-git clone https://github.com/gr1m0h/notion-to-github-migration.git
-cd notion-to-github-migration
+git clone https://github.com/gr1m0h/notion-to-github-migrator.git
+cd notion-to-github-migrator
 
 # Download dependencies
 go mod download
 
 # Build
-go build -o notion-to-github-migration cmd/notion-to-github-migration/main.go
+go build -o notion-to-github-migrator cmd/notion-to-github-migrator/main.go
 
 ```
 
 ### Using go install
 
 ```bash
-go install github.com/gr1m0h/notion-to-github-migration@latest
+go install github.com/gr1m0h/notion-to-github-migrator@latest
+
+# Or install from local directory
+go install ./cmd/notion-to-github-migrator
 ```
 
 ## Usage
@@ -89,14 +92,14 @@ Create `config.json` with the following content:
 
 ```bash
 # Using config file
-./notion-to-github-migration -csv notion-export.csv -config config.json
+./notion-to-github-migrator -csv notion-export.csv -config config.json
 
 # Using environment variable for token (without config file)
 export GITHUB_TOKEN=github_pat_xxxxxxxxxxxxx
-./notion-to-github-migration -csv notion-export.csv
+./notion-to-github-migrator -csv notion-export.csv
 
 # Show help
-./notion-to-github-migration -h
+./notion-to-github-migrator -h
 ```
 
 ## Configuration Options
