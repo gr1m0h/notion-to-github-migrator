@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   test:
@@ -55,4 +56,4 @@ jobs:
       - name: Check and fix GitHub Actions with pinact
         uses: suzuki-shunsuke/pinact-action@v0.2.0
         with:
-          skip_push: false
+          skip_push: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
