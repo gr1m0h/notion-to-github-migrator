@@ -3,7 +3,6 @@ project_name: notion-to-github-migrator
 before:
   hooks:
     - go mod tidy
-    - go generate ./...
 
 builds:
   - env:
@@ -17,7 +16,7 @@ builds:
       - amd64
       - arm
       - arm64
-    main: ./cmd/notion-to-github-migrator
+    dir: ./cmd/notion-to-github-migrator
     binary: notion-to-github-migrator
     ignore:
       - goos: darwin
