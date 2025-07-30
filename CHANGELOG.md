@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.2](https://github.com/gr1m0h/notion-to-github-migrator/compare/v0.1.1...v0.1.2) - 2025-07-30
+- Fix/tagpr release workflow by @gr1m0h in https://github.com/gr1m0h/notion-to-github-migrator/pull/21
+
 ## [v0.1.1](https://github.com/gr1m0h/notion-to-github-migrator/compare/v0.1.0...v0.1.1) - 2025-07-30
 - disable tagpr release note generation to avoid duplication with GoRel… by @gr1m0h in https://github.com/gr1m0h/notion-to-github-migrator/pull/20
 
