@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.1](https://github.com/gr1m0h/notion-to-github-migrator/compare/v0.1.0...v0.1.1) - 2025-07-30
+- disable tagpr release note generation to avoid duplication with GoRel… by @gr1m0h in https://github.com/gr1m0h/notion-to-github-migrator/pull/20
+
 ## [v0.1.0](https://github.com/gr1m0h/notion-to-github-migrator/commits/v0.1.0) - 2025-07-30
 - chore: Configure Renovate by @renovate[bot] in https://github.com/gr1m0h/notion-to-github-migrator/pull/1
 - fix: improve code quality and error handling by @gr1m0h in https://github.com/gr1m0h/notion-to-github-migrator/pull/10
