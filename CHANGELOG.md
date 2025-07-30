@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.3](https://github.com/gr1m0h/notion-to-github-migrator/compare/v0.1.2...v0.1.3) - 2025-07-30
+- Fix: Simplify release workflow by @gr1m0h in https://github.com/gr1m0h/notion-to-github-migrator/pull/23
+
 ## [v0.1.2](https://github.com/gr1m0h/notion-to-github-migrator/compare/v0.1.1...v0.1.2) - 2025-07-30
 - Fix/tagpr release workflow by @gr1m0h in https://github.com/gr1m0h/notion-to-github-migrator/pull/21
 
