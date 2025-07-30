@@ -51,3 +51,5 @@ jobs:
 
       - name: Check GitHub Actions with pinact
         uses: suzuki-shunsuke/pinact-action@v0.2.0
+        with:
+          skip_push: true
