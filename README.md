@@ -12,8 +12,8 @@ A Go tool to migrate CSV exports from Notion databases to GitHub issues.
 
 ## Requirements
 
-Go 1.21+
-GitHub Personal Access Token (Fine-grained)
+- Go 1.23+
+- GitHub Personal Access Token (Fine-grained)
 
 ## Installation
 
@@ -30,12 +30,10 @@ go build -o notion-to-github-migrator cmd/notion-to-github-migrator/main.go
 
 ```
 
-### Using go install
+### Using go install (from local directory)
 
 ```bash
-go install github.com/gr1m0h/notion-to-github-migrator@latest
-
-# Or install from local directory
+# Install from local directory
 go install ./cmd/notion-to-github-migrator
 ```
 
