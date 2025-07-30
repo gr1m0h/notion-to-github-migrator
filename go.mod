@@ -1,4 +1,4 @@
-module github.com/gr1m0h/notion-to-github-migratior
+module github.com/gr1m0h/notion-to-github-migrator
 
 go 1.21
 
