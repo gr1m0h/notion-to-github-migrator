@@ -6,6 +6,9 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -49,7 +52,7 @@ jobs:
             exit 1
           fi
 
-      - name: Check GitHub Actions with pinact
+      - name: Check and fix GitHub Actions with pinact
         uses: suzuki-shunsuke/pinact-action@v0.2.0
         with:
-          skip_push: true
+          skip_push: false
